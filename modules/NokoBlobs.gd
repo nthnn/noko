@@ -7,6 +7,16 @@ class_name NokoBlobs
 const NetUtils = preload("res://modules/utils/NetUtils.gd")
 const ValidatorUtils = preload("res://modules/utils/ValidatorUtils.gd")
 
+# Checks if a blob identified by its SHA-256 digest exists on the server.
+#
+# This function performs a GET request to the server's blob endpoint to verify
+# the existence of a blob corresponding to the provided SHA-256 digest.
+#
+# @param parent (Node): The node initiating the request, used for signal connections.
+# @param server (Dictionary): A dictionary containing the server's 'host' and 'port'.
+# @param digest (String): The SHA-256 hash of the blob to check.
+# @param use_ssl (bool, optional): Determines whether to use HTTPS. Defaults to true.
+# @return (bool): True if the blob exists on the server (HTTP 200 response), false otherwise.
 static func has_blob(
     parent: Node,
     server: Dictionary,
