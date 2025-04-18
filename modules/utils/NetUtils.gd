@@ -2,8 +2,22 @@
 # This file is part of Noko (https://github.com/nthnn/noko)
 # This code is licensed under MIT license (see LICENSE for details)
 
+# Utility class providing static methods for HTTP communication.
+# Includes methods for sending POST and GET requests with optional headers,
+# body or query parameters, and SSL support.
 class_name NetUtils
 
+# Sends an HTTP POST request to the specified URL.
+# 
+# @param parent (Node): The node to which the HTTPRequest will be added.
+# @param url (String): The full endpoint URL for the POST request.
+# @param headers (Dictionary): Optional HTTP headers (key: header name, value: header value).
+# @param body (Dictionary): Optional request payload as key/value pairs, serialized to JSON.
+# @param use_ssl (bool): Whether to enforce SSL; setting true allows https URLs.
+# @return (Dictionary) A result containing:
+#   - result (int): The HTTPRequest result code (OK or error code).
+#   - response_code (int): The HTTP status code (e.g., 200, 404).
+#   - body (Variant): Parsed JSON body if successful and JSON was returned, otherwise null.
 static func send_post_request(
     parent: Node,
     url: String,
@@ -58,6 +72,17 @@ static func send_post_request(
         "body": bodyValue
     }
 
+# Sends an HTTP GET request to the specified URL.
+# 
+# @param parent (Node): The node to which the HTTPRequest will be added.
+# @param url (String): The base URL for the GET request; query_params will be appended.
+# @param headers (Dictionary): Optional HTTP headers (key: header name, value: header value).
+# @param query_params (Dictionary): Optional URL parameters (key: name, value: value) to include.
+# @param use_ssl (bool): Whether to enforce SSL; setting true allows https URLs.
+# @return (Dictionary) A result containing:
+#   - result (int): The HTTPRequest result code (OK or error code).
+#   - response_code (int): The HTTP status code (e.g., 200, 404).
+#   - body (Variant): Parsed JSON body if successful and JSON was returned, otherwise null.
 static func send_get_request(
     parent: Node,
     url: String,
