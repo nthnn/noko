@@ -204,7 +204,10 @@ static func fetch_model_info(
         parent,
         server["host"] + ":" + str(server["port"]) + "/api/show",
         {"User-Agent": "noko-godot/0.0.1"},
-        {"model": model},
+        {
+            "model": model,
+            "verbose": true
+        },
         use_ssl
     )
 
@@ -253,5 +256,55 @@ static func delete_model(
             "Content-Type": "application/x-www-form-urlencoded"
         },
         {"model": model},
+        use_ssl
+    )
+
+static func pull_model(
+    parent: Node,
+    server: Dictionary,
+    model: String,
+    use_ssl: bool = true
+)-> Dictionary:
+    if (!server.has("host") or
+        !server.has("port")):
+        push_error("Server host name and port number must be defined")
+        return {"result": 0}
+
+    return await NetUtils.send_post_request(
+        parent,
+        server["host"] + ":" + str(server["port"]) + "/api/pull",
+        {
+            "User-Agent": "noko-godot/0.0.1",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        {
+            "model": model,
+            "stream": false
+        },
+        use_ssl
+    )
+
+static func push_model(
+    parent: Node,
+    server: Dictionary,
+    model: String,
+    use_ssl: bool = true
+)-> Dictionary:
+    if (!server.has("host") or
+        !server.has("port")):
+        push_error("Server host name and port number must be defined")
+        return {"result": 0}
+
+    return await NetUtils.send_post_request(
+        parent,
+        server["host"] + ":" + str(server["port"]) + "/api/push",
+        {
+            "User-Agent": "noko-godot/0.0.1",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        {
+            "model": model,
+            "stream": false
+        },
         use_ssl
     )
