@@ -1,6 +1,6 @@
 extends SceneTree
 
-const NetUtils = preload("res://modules/NetUtils.gd")
+const NetUtils = preload("res://modules/utils/NetUtils.gd")
 
 func _init():
     call_deferred("_start_request")
