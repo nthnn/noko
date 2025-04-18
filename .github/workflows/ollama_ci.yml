@@ -27,6 +27,7 @@ jobs:
       - name: Start serving
         run: |
             ollama serve &
+            ollama pull gemma3
             sleep 5
             time curl -i http://localhost:11434
 
