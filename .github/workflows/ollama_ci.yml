@@ -33,5 +33,5 @@ jobs:
 
       - name: Run test files
         run: |
-          godot --headless --script test/blob_test.gd
-          godot --headless --script test/prompt_test.gd
+          godot --headless --script examples/blob_test.gd
+          godot --headless --script examples/prompt_test.gd
