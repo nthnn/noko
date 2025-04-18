@@ -1,3 +1,7 @@
+# Copyright 2025 Nathanne Isip
+# This file is part of Noko (https://github.com/nthnn/noko)
+# This code is licensed under MIT license (see LICENSE for details)
+
 class_name NokoPrompt
 
 const NetUtils = preload("res://modules/utils/NetUtils.gd")
