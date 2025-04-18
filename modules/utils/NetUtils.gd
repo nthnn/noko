@@ -1,3 +1,7 @@
+# Copyright 2025 Nathanne Isip
+# This file is part of Noko (https://github.com/nthnn/noko)
+# This code is licensed under MIT license (see LICENSE for details)
+
 class_name NetUtils
 
 static func send_post_request(
@@ -12,16 +16,20 @@ static func send_post_request(
     
     var response_signal = http_request.request_completed
     http_request.use_threads = true
-    
+
     var header_array = PackedStringArray()
     for key in headers:
         header_array.append(key + ": " + headers[key])
+
+    var actualBody = "{}"
+    if body.size() != 0:
+        actualBody = JSON.stringify(body)
 
     var error = http_request.request(
         url,
         header_array,
         HTTPClient.METHOD_POST,
-        JSON.stringify(body)
+        actualBody
     )
 
     if error != OK:
@@ -34,11 +42,31 @@ static func send_post_request(
     var response = await response_signal
     http_request.queue_free()
 
+    var headerValue = null
+    if (response[1] == 200
+        and response[2] != null
+        and response[2].size() != 0):
+        headerValue = JSON.parse_string(
+            str(response[2])
+        )
+    else:
+        headerValue = null
+
+    var bodyValue = null
+    if (response[1] == 200
+        and response[3] != null
+        and response[3].size() != 0):
+        bodyValue = JSON.parse_string(
+            response[3].get_string_from_utf8()
+        )
+    else:
+        bodyValue = null
+
     return {
         "result": response[0],
         "response_code": response[1],
-        "headers": JSON.parse_string(str(response[2])),
-        "body": JSON.parse_string(response[3].get_string_from_utf8())
+        "headers": headerValue,
+        "body": bodyValue
     }
 
 static func send_get_request(
@@ -84,23 +112,47 @@ static func send_get_request(
         url += query_string
     
     var header_array = PackedStringArray()
-    for key in headers:
-        header_array.append(key + ": " + headers[key])
-    
-    var error = http_request.request(url, header_array, HTTPClient.METHOD_GET)
+    if headers.size() != 0:
+        for key in headers:
+            header_array.append(key + ": " + headers[key])
+
+    var error = http_request.request(
+        url,
+        header_array,
+        HTTPClient.METHOD_GET
+    )
+
     if error != OK:
-        push_error("An error occurred in the HTTP request: " + str(error))
+        push_error("HTTP request error: " + str(error))
         http_request.queue_free()
-        return {
-            "result": HTTPRequest.RESULT_CANT_CONNECT
-        }
+        return {"result": HTTPRequest.RESULT_CANT_CONNECT}
 
     var response = await response_signal
     http_request.queue_free()
 
+    var headerValue = null
+    if (response[1] == 200
+        and response[2] != null
+        and response[2].size() != 0):
+        headerValue = JSON.parse_string(
+            str(response[2])
+        )
+    else:
+        headerValue = null
+
+    var bodyValue = null
+    if (response[1] == 200
+        and response[3] != null
+        and response[3].size() != 0):
+        bodyValue = JSON.parse_string(
+            response[3].get_string_from_utf8()
+        )
+    else:
+        bodyValue = null
+
     return {
         "result": response[0],
         "response_code": response[1],
-        "headers": JSON.parse_string(str(response[2])),
-        "body": JSON.parse_string(response[3].get_string_from_utf8())
+        "headers": headerValue,
+        "body": bodyValue
     }
