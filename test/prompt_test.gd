@@ -42,8 +42,8 @@ func _start_request():
         prompt
     )
 
-    print("Me: " + prompt[2]["content"])
-    print(generated["body"]["message"]["content"])
+    print("Me:\t" + prompt[2]["content"])
+    print("Gemma:\t" + generated["body"]["message"]["content"])
 
     if await NokoModel.unload_chat_model(root, server, model, false):
         print("Successfully unloaded model: " + model)
