@@ -15,9 +15,7 @@ static func generate(
     if (!server.has("host") or
         !server.has("port")):
         push_error("Server host name and port number must be defined")
-        return {
-            "result": 0
-        }
+        return {"result": 0}
 
     var data = {
         "model": model,
@@ -60,9 +58,7 @@ static func chat(
     if (!server.has("host") or
         !server.has("port")):
         push_error("Server host name and port number must be defined")
-        return {
-            "result": 0
-        }
+        return {"result": 0}
 
     var data = {
         "model": model,
