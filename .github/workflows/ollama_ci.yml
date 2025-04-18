@@ -34,5 +34,6 @@ jobs:
       - name: Run test files
         run: |
           godot --headless --script examples/blob_example.gd
+          godot --headless --script examples/fetch_info_example.gd
           godot --headless --script examples/list_example.gd
           godot --headless --script examples/prompt_example.gd
