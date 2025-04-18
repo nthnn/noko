@@ -37,3 +37,4 @@ jobs:
           godot --headless --no-header --script examples/fetch_info_example.gd
           godot --headless --no-header --script examples/list_example.gd
           godot --headless --no-header --script examples/prompt_example.gd
+          godot --headless --no-header --script examples/runner_version_example.gd
