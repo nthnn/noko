@@ -2,10 +2,25 @@
 # This file is part of Noko (https://github.com/nthnn/noko)
 # This code is licensed under MIT license (see LICENSE for details)
 
+# Class for sending prompts and messages to remote Noko language models.
 class_name NokoPrompt
 
 const NetUtils = preload("res://modules/utils/NetUtils.gd")
 
+# Sends a text-completion request to a generation endpoint.
+#
+# @param parent (Node): Node to attach the HTTPRequest to.
+# @param server (Dictionary): Server config containing 'host' and 'port'.
+# @param model (String): Identifier of the model to use for generation.
+# @param prompt (String): The input text prompt to send to the model.
+# @param suffix (String): Text appended after the generated content (optional).
+# @param image (Dictionary): Optional image data or parameters for multimodal generation.
+# @param options (Dictionary): Additional generation parameters (e.g., max_tokens, temperature).
+# @param use_ssl (bool): If true, uses 'https://' schema; otherwise 'http://'.
+# @return (Dictionary): Response dictionary with:
+#   - result (int): HTTPRequest result code.
+#   - response_code (int): HTTP status code returned by the server.
+#   - body (Variant): Decoded JSON response or null on error.
 static func generate(
     parent: Node,
     server: Dictionary,
@@ -49,6 +64,20 @@ static func generate(
     push_error("Error trying to generate response")
     return response
 
+# Sends a conversational chat request to a chat endpoint.
+#
+# @param parent (Node): Node to attach the HTTPRequest to.
+# @param server (Dictionary): Server config containing 'host' and 'port'.
+# @param model (String): Identifier of the chat model to interact with.
+# @param messages (Array): Conversation history as array of role/content maps.
+# @param suffix (String): Text appended after the assistant's reply (optional).
+# @param image (Dictionary): Optional image context for multimodal chats.
+# @param options (Dictionary): Additional chat parameters (e.g., max_tokens, temperature).
+# @param use_ssl (bool): If true, uses 'https://' schema; otherwise 'http://'.
+# @return (Dictionary): Response dictionary with:
+#   - result (int): HTTPRequest result code.
+#   - response_code (int): HTTP status code returned by the server.
+#   - body (Variant): Decoded JSON response or null on error.
 static func chat(
     parent: Node,
     server: Dictionary,
