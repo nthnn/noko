@@ -8,6 +8,7 @@ static func generate(
     model: String,
     prompt: String,
     suffix: String = "",
+    image: Dictionary = {},
     options: Dictionary = {},
     use_ssl: bool = true
 )-> Dictionary:
@@ -18,6 +19,17 @@ static func generate(
             "result": 0
         }
 
+    var data = {
+        "model": model,
+        "prompt": prompt,
+        "suffix": suffix,
+        "stream": false,
+        "options": options
+    }
+
+    if image.size() != 0:
+        data["images"] = image
+
     var response = await NetUtils.send_post_request(
         parent,
         server["host"] + ":" + str(server["port"]) + "/api/generate",
@@ -25,13 +37,7 @@ static func generate(
             "User-Agent": "noko-godot/0.0.1",
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        {
-            "model": model,
-            "prompt": prompt,
-            "suffix": suffix,
-            "stream": false,
-            "options": options
-        },
+        data,
         use_ssl
     )
 
