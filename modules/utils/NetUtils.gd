@@ -33,7 +33,7 @@ static func send_post_request(
     
     var response = await response_signal
     http_request.queue_free()
-    
+
     return {
         "result": response[0],
         "response_code": response[1],
