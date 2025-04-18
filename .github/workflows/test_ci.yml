@@ -22,5 +22,5 @@ jobs:
 
       - name: Run test files
         run: |
-          godot --headless --script test/net_util_test.gd
-          godot --headless --script test/sha256_validator_test.gd
+          godot --headless --no-header --script test/net_util_test.gd
+          godot --headless --no-header --script test/sha256_validator_test.gd
