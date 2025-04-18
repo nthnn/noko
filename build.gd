@@ -4,7 +4,11 @@
 
 extends SceneTree
 
-func add_dir_to_zip(packer: ZIPPacker, src_dir: String, zip_subpath: String) -> void:
+func add_dir_to_zip(
+    packer: ZIPPacker,
+    src_dir: String,
+    zip_subpath: String
+) -> void:
     var dir := DirAccess.open(src_dir)
 
     if dir == null:
@@ -29,7 +33,11 @@ func add_dir_to_zip(packer: ZIPPacker, src_dir: String, zip_subpath: String) -> 
         name = dir.get_next()
     dir.list_dir_end()
 
-func add_file_to_zip(packer: ZIPPacker, src_path: String, zip_path: String) -> void:
+func add_file_to_zip(
+    packer: ZIPPacker,
+    src_path: String,
+    zip_path: String
+) -> void:
     var file := FileAccess.open(src_path, FileAccess.READ)
     if file == null:
         push_warning("File error: " + src_path)
@@ -64,8 +72,11 @@ func _init():
         push_error("Zip error: " + str(err))
         return
 
-    var extras = ["res://LICENSE", "res://plugin.cfg", "res://plugin.gd"]
-    for file_path in extras:
+    for file_path in [
+        "res://LICENSE",
+        "res://plugin.cfg",
+        "res://plugin.gd"
+    ]:
         if FileAccess.file_exists(file_path):
             add_file_to_zip(packer, file_path, file_path.get_file())
         else:
