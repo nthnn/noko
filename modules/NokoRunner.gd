@@ -2,10 +2,22 @@
 # This file is part of Noko (https://github.com/nthnn/noko)
 # This code is licensed under MIT license (see LICENSE for details)
 
+# Class for retrieving runner status and version from a remote Noko server.
 class_name NokoRunner
 
 const NetUtils = preload("res://modules/utils/NetUtils.gd")
 
+# Fetches the current version of the Noko runner from the server.
+#
+# Initiates an HTTP GET request to the "/api/version" endpoint
+# and returns the version string if successful.
+#
+# @param parent (Node): Node to attach the HTTPRequest to.
+# @param server (Dictionary): Server configuration with keys:
+#   - "host" (String): Hostname or URL (e.g., "http://example.com").
+#   - "port" (int): Port number (e.g., 8080).
+# @param use_ssl (bool): If true, uses HTTPS scheme; otherwise HTTP.
+# @return (String): Version string on success, or empty string on error.
 static func version(
     parent: Node,
     server: Dictionary,
@@ -30,6 +42,17 @@ static func version(
 
     return response["body"]["version"]
 
+# Retrieves the current process status identifier of the Noko runner.
+#
+# Sends an HTTP GET request to the "/api/ps" endpoint
+# and returns the status string (e.g., a process ID or state).
+#
+# @param parent (Node): Node to attach the HTTPRequest to.
+# @param server (Dictionary): Server configuration with keys:
+#   - "host" (String): Hostname or URL (e.g., "http://example.com").
+#   - "port" (int): Port number (e.g., 8080).
+# @param use_ssl (bool): If true, uses HTTPS scheme; otherwise HTTP.
+# @return (String): Process status string on success, or empty string on error.
 static func process_status(
     parent: Node,
     server: Dictionary,
