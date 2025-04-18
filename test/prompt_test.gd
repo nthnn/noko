@@ -16,7 +16,7 @@ func _start_request():
         "port": 11434
     }
 
-    if await NokoModel.load_model(root, server, model, false):
+    if await NokoModel.load_generate_model(root, server, model, false):
         print("Successfully loaded model: " + model)
     else:
         print("Something went wrong trying to load model: " + model)
@@ -32,7 +32,7 @@ func _start_request():
     print("Me: " + prompt)
     print("Gemma: " + generated["body"]["response"])
 
-    if await NokoModel.unload_model(root, server, model, false):
+    if await NokoModel.unload_generate_model(root, server, model, false):
         print("Successfully unloaded model: " + model)
     else:
         print("Something went wrong trying to unload model: " + model)
