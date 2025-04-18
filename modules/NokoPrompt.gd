@@ -5,7 +5,7 @@
 # Class for sending prompts and messages to remote Noko language models.
 class_name NokoPrompt
 
-const NetUtils = preload("res://modules/utils/NetUtils.gd")
+const NetUtils = preload("./utils/NetUtils.gd")
 
 # Sends a text-completion request to a generation endpoint.
 #

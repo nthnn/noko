@@ -5,7 +5,7 @@
 # Class for retrieving runner status and version from a remote Noko server.
 class_name NokoRunner
 
-const NetUtils = preload("res://modules/utils/NetUtils.gd")
+const NetUtils = preload("./utils/NetUtils.gd")
 
 # Fetches the current version of the Noko runner from the server.
 #

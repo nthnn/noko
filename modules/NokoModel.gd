@@ -5,7 +5,7 @@
 # Class for managing model lifecycle and server interactions in Noko.
 class_name NokoPrompt
 
-const NetUtils = preload("res://modules/utils/NetUtils.gd")
+const NetUtils = preload("./utils/NetUtils.gd")
 
 # Initiates loading of a text-generation model on the remote server.
 #

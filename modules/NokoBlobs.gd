@@ -4,8 +4,8 @@
 
 class_name NokoBlobs
 
-const NetUtils = preload("res://modules/utils/NetUtils.gd")
-const ValidatorUtils = preload("res://modules/utils/ValidatorUtils.gd")
+const NetUtils = preload("./utils/NetUtils.gd")
+const ValidatorUtils = preload("./utils/ValidatorUtils.gd")
 
 # Checks if a blob identified by its SHA-256 digest exists on the server.
 #
