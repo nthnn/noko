@@ -1,0 +1,32 @@
+name: Build Noko
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Godot
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.4.1
+          export-templates: false
+
+      - name: Run test files
+        run: |
+          godot --headless --no-header --script build.gd
+
+      - name: Upload dist folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: noko-v0.0.1
+          path: dist/noko-v0.0.1.zip
+          retention-days: 1
