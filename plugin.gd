@@ -1,10 +1,12 @@
 extends EditorPlugin
 
-var net_utils
+var NokoModel = preload("res://modules/NokoModel.gd").new()
+var NokoPrompt = preload("res://modules/NokoPrompt.gd").new()
 
 func _enter_tree() -> void:
-    net_utils = preload("res://modules/NetUtils.gd").new()
-    Engine.register_singleton("NetUtils", net_utils)
+    Engine.register_singleton("NokoModel", NokoModel)
+    Engine.register_singleton("NokoPrompt", NokoPrompt)
 
 func _exit_tree() -> void:
-    Engine.unregister_singleton("NetUtils")
+    Engine.unregister_singleton("NokoModel")
+    Engine.unregister_singleton("NokoPrompt")
