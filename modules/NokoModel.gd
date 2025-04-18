@@ -2,10 +2,18 @@
 # This file is part of Noko (https://github.com/nthnn/noko)
 # This code is licensed under MIT license (see LICENSE for details)
 
+# Class for managing model lifecycle and server interactions in Noko.
 class_name NokoPrompt
 
 const NetUtils = preload("res://modules/utils/NetUtils.gd")
 
+# Initiates loading of a text-generation model on the remote server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port" keys.
+# @param model (String): Identifier of the model to load.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (bool): True if the request succeeded, false otherwise.
 static func load_generate_model(
     parent: Node,
     server: Dictionary,
@@ -30,6 +38,13 @@ static func load_generate_model(
 
     return response["result"] == HTTPRequest.RESULT_SUCCESS
 
+# Unloads or shuts down a loaded text-generation model on the server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port" keys.
+# @param model (String): Identifier of the model to unload.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (bool): True if the request succeeded, false otherwise.
 static func unload_generate_model(
     parent: Node,
     server: Dictionary,
@@ -57,6 +72,13 @@ static func unload_generate_model(
 
     return response["result"] == HTTPRequest.RESULT_SUCCESS
 
+# Initiates loading of a chat model (with conversation context) on the server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port" keys.
+# @param model (String): Identifier of the chat model to load.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (bool): True if the request succeeded, false otherwise.
 static func load_chat_model(
     parent: Node,
     server: Dictionary,
@@ -84,6 +106,13 @@ static func load_chat_model(
 
     return response["result"] == HTTPRequest.RESULT_SUCCESS
 
+# Unloads a previously loaded chat model, optionally closing session state.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port" keys.
+# @param model (String): Identifier of the chat model to unload.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (bool): True if the request succeeded, false otherwise.
 static func unload_chat_model(
     parent: Node,
     server: Dictionary,
@@ -112,6 +141,22 @@ static func unload_chat_model(
 
     return response["result"] == HTTPRequest.RESULT_SUCCESS
 
+# Sends a request to create or configure a new model instance with optional metadata.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param model (String): Name or identifier of the new model.
+# @param from (String): Origin or base model name (optional).
+# @param system (String): System prompt or initial configuration (optional).
+# @param template (String): Template name for model generation (optional).
+# @param quantize (String): Quantization strategy or level (optional).
+# @param messages (Array): Initial conversation messages (optional).
+# @param files (Dictionary): Additional file metadata or attachments (optional).
+# @param license (Array): License terms or identifiers (optional).
+# @param adapters (Dictionary): Adapter configurations (optional).
+# @param parameters (Dictionary): Additional parameters (optional).
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Full response dictionary including result, code, and body.
 static func create_model(
     parent: Node,
     server: Dictionary,
@@ -171,6 +216,12 @@ static func create_model(
     push_error("Error trying to generate model")
     return response
 
+# Retrieves a list of available model tags from the server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Response containing tag list or error information.
 static func list_model(
     parent: Node,
     server: Dictionary,
@@ -189,6 +240,13 @@ static func list_model(
         use_ssl
     )
 
+# Fetches detailed information for a specific model, including metadata.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param model (String): Identifier of the model to inspect.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Detailed model info or error information.
 static func fetch_model_info(
     parent: Node,
     server: Dictionary,
@@ -211,6 +269,14 @@ static func fetch_model_info(
         use_ssl
     )
 
+# Copies an existing model from one name to another on the server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param source (String): Name of the model to copy.
+# @param destination (String): New name for the copied model.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Result of the copy operation.
 static func copy_model(
     parent: Node,
     server: Dictionary,
@@ -237,6 +303,13 @@ static func copy_model(
         use_ssl
     )
 
+# Deletes a model from the server by its identifier.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param model (String): Identifier of the model to delete.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Result of the delete operation.
 static func delete_model(
     parent: Node,
     server: Dictionary,
@@ -259,6 +332,13 @@ static func delete_model(
         use_ssl
     )
 
+# Pulls or downloads a model from remote repository to local server.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param model (String): Identifier of the model to pull.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Result of the pull operation.
 static func pull_model(
     parent: Node,
     server: Dictionary,
@@ -284,6 +364,13 @@ static func pull_model(
         use_ssl
     )
 
+# Pushes or uploads a local model to a remote repository for sharing.
+#
+# @param parent (Node): Node to which the HTTPRequest node will be attached.
+# @param server (Dictionary): Server configuration with "host" and "port".
+# @param model (String): Identifier of the model to push.
+# @param use_ssl (bool): Whether to use HTTPS (true) or HTTP (false).
+# @return (Dictionary): Result of the push operation.
 static func push_model(
     parent: Node,
     server: Dictionary,
