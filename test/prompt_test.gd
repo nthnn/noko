@@ -20,7 +20,7 @@ func _start_request():
         },
         {
             "role": "user",
-            "content": "Can you tell me back my name?"
+            "content": "Can you tell me back my name? (Answer in one sentence only)"
         }
     ]
 
