@@ -9,6 +9,8 @@
     <img alt="Godot Headless Script Tests" src="https://github.com/nthnn/noko/actions/workflows/test_ci.yml/badge.svg" />
 </p>
 
+## 🦙 Overview
+
 Noko is a user-friendly Godot plugin that facilitates seamless interaction with [Ollama](https://ollama.com/) models via API. It empowers developers to enhance their games with interactive Large Language Models (LLMs), enabling dynamic dialogues, intelligent NPCs, and more.​
 
 - **Effortless Integration**: Quickly connect your Godot project to local Ollama models.
