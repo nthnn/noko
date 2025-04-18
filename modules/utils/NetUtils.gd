@@ -42,16 +42,6 @@ static func send_post_request(
     var response = await response_signal
     http_request.queue_free()
 
-    var headerValue = null
-    if (response[1] == 200
-        and response[2] != null
-        and response[2].size() != 0):
-        headerValue = JSON.parse_string(
-            str(response[2])
-        )
-    else:
-        headerValue = null
-
     var bodyValue = null
     if (response[1] == 200
         and response[3] != null
@@ -65,7 +55,6 @@ static func send_post_request(
     return {
         "result": response[0],
         "response_code": response[1],
-        "headers": headerValue,
         "body": bodyValue
     }
 
@@ -130,16 +119,6 @@ static func send_get_request(
     var response = await response_signal
     http_request.queue_free()
 
-    var headerValue = null
-    if (response[1] == 200
-        and response[2] != null
-        and response[2].size() != 0):
-        headerValue = JSON.parse_string(
-            str(response[2])
-        )
-    else:
-        headerValue = null
-
     var bodyValue = null
     if (response[1] == 200
         and response[3] != null
@@ -153,6 +132,5 @@ static func send_get_request(
     return {
         "result": response[0],
         "response_code": response[1],
-        "headers": headerValue,
         "body": bodyValue
     }
