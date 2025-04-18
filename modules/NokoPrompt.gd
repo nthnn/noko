@@ -46,3 +46,48 @@ static func generate(
 
     push_error("Error trying to generate response")
     return response
+
+static func chat(
+    parent: Node,
+    server: Dictionary,
+    model: String,
+    messages: Array,
+    suffix: String = "",
+    image: Dictionary = {},
+    options: Dictionary = {},
+    use_ssl: bool = true
+)-> Dictionary:
+    if (!server.has("host") or
+        !server.has("port")):
+        push_error("Server host name and port number must be defined")
+        return {
+            "result": 0
+        }
+
+    var data = {
+        "model": model,
+        "messages": messages,
+        "suffix": suffix,
+        "stream": false,
+        "options": options
+    }
+
+    if image.size() != 0:
+        data["images"] = image
+
+    var response = await NetUtils.send_post_request(
+        parent,
+        server["host"] + ":" + str(server["port"]) + "/api/chat",
+        {
+            "User-Agent": "noko-godot/0.0.1",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data,
+        use_ssl
+    )
+
+    if response["result"] == HTTPRequest.RESULT_SUCCESS:
+        return response
+
+    push_error("Error trying to generate response")
+    return response
