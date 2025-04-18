@@ -9,30 +9,43 @@ func _init():
 func _start_request():
     var root = get_root()
     var model = "gemma3"
-    var prompt = "Hello! What's your name? (Answer in one sentence)"
+    var prompt = [
+        {
+            "role": "user",
+            "content": "Hello! I am Nathanne."
+        },
+        {
+            "role": "assistant",
+            "content": "Hello, Nathanne. I am Gemma, an AI assistant developed by Google DeepMind."
+        },
+        {
+            "role": "user",
+            "content": "Can you tell me back my name?"
+        }
+    ]
 
     var server = {
         "host": "http://localhost",
         "port": 11434
     }
 
-    if await NokoModel.load_generate_model(root, server, model, false):
+    if await NokoModel.load_chat_model(root, server, model, false):
         print("Successfully loaded model: " + model)
     else:
         print("Something went wrong trying to load model: " + model)
         quit()
 
-    var generated = await NokoPrompt.generate(
+    var generated = await NokoPrompt.chat(
         root,
         server,
         "gemma3",
         prompt
     )
 
-    print("Me: " + prompt)
-    print("Gemma: " + generated["body"]["response"])
+    print("Me: " + prompt[2]["content"])
+    print(generated["body"]["message"]["content"])
 
-    if await NokoModel.unload_generate_model(root, server, model, false):
+    if await NokoModel.unload_chat_model(root, server, model, false):
         print("Successfully unloaded model: " + model)
     else:
         print("Something went wrong trying to unload model: " + model)
