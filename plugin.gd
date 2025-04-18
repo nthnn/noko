@@ -4,9 +4,9 @@
 
 extends EditorPlugin
 
-var NokoBlobs = preload("res://modules/NokoBlobs.gd").new()
-var NokoModel = preload("res://modules/NokoModel.gd").new()
-var NokoPrompt = preload("res://modules/NokoPrompt.gd").new()
+var NokoBlobs = preload("./modules/NokoBlobs.gd").new()
+var NokoModel = preload("./modules/NokoModel.gd").new()
+var NokoPrompt = preload("./modules/NokoPrompt.gd").new()
 
 func _enter_tree() -> void:
     Engine.register_singleton("NokoBlobs", NokoBlobs)
