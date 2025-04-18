@@ -170,3 +170,21 @@ static func create_model(
 
     push_error("Error trying to generate model")
     return response
+
+static func list_model(
+    parent: Node,
+    server: Dictionary,
+    use_ssl: bool = true
+)-> Dictionary:
+    if (!server.has("host") or
+        !server.has("port")):
+        push_error("Server host name and port number must be defined")
+        return {"result": 0}
+
+    return await NetUtils.send_get_request(
+        parent,
+        server["host"] + ":" + str(server["port"]) + "/api/tags",
+        {"User-Agent": "noko-godot/0.0.1"},
+        {},
+        use_ssl
+    )
