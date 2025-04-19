@@ -2,6 +2,7 @@
 # This file is part of Noko (https://github.com/nthnn/noko)
 # This code is licensed under MIT license (see LICENSE for details)
 
+@tool
 extends EditorPlugin
 
 var NokoBlobs = preload("./modules/NokoBlobs.gd").new()

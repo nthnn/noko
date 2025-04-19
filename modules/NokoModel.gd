@@ -3,7 +3,7 @@
 # This code is licensed under MIT license (see LICENSE for details)
 
 # Class for managing model lifecycle and server interactions in Noko.
-class_name NokoPrompt
+class_name NokoModel
 
 const NetUtils = preload("./utils/NetUtils.gd")
 
