@@ -52,7 +52,7 @@ func add_file_to_zip(
 
 func _init():
     var packer := ZIPPacker.new()
-    var outputFile = "dist/noko-v0.0.1.zip"
+    var outputFile = "dist/noko-v0.0.2.zip"
 
     if FileAccess.file_exists(outputFile):
         var remErr = DirAccess.remove_absolute(outputFile)
