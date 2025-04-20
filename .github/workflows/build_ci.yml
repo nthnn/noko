@@ -28,5 +28,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: noko-v0.0.1
-          path: dist/noko-v0.0.1.zip
+          path: dist/noko-v0.0.2.zip
           retention-days: 1
